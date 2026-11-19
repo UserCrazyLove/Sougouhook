@@ -1,0 +1,25 @@
+*.iml
+.gradle
+/.idea/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Gradle / Kotlin / IDE 缓存
+.kotlin/
+/.kotlin/
+
+# 本地手工导出的安装包副本，不入库
+/app/release/
+/app/debug/
+*.apk

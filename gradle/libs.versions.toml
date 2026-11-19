@@ -1,0 +1,10 @@
+[versions]
+agp = "9.4.1"
+# libxposed: modern Xposed API（Maven Central 发布）
+libxposedApi = "102.0.0"
+
+[libraries]
+libxposed-api = { group = "io.github.libxposed", name = "api", version.ref = "libxposedApi" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }

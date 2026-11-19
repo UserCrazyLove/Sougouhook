@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 纯 Hook 模块：没有桌面图标、没有任何 Activity，只出现在 LSPosed 模块页 -->
+    <application
+        android:allowBackup="false"
+        android:description="@string/module_description"
+        android:icon="@drawable/ic_hook"
+        android:label="@string/app_name" />
+
+</manifest>

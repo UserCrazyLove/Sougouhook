@@ -1,0 +1,29 @@
+# Add project specific R8 rules here.
+# AGP will combine all keep rule files in src/main/keepRules to pass to R8
+#
+# For more details, see
+#   https://d.android.com/r/tools/r8/keep-rules
+
+# ---- 基础策略 ----
+# 只做裁剪（shrink），不做优化、不做混淆：
+# 之前开启 optimize/obfuscate 时，R8 把 FeatureRegistry 的静态初始化路径改坏，
+# 运行期在 installAll 处静默异常，表现为「模块加载了但一个钩子都没装上」。
+-dontoptimize
+-dontobfuscate
+
+# ---- libxposed（modern Xposed API）模块入口 ----
+-dontwarn io.github.libxposed.annotation.**
+
+# 入口类与成员必须原样保留，类名要和 META-INF/xposed/java_init.list 一致
+-keep public class * extends io.github.libxposed.api.XposedModule {
+    public <init>();
+    public void onModuleLoaded(io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam);
+    public void onPackageReady(io.github.libxposed.api.XposedModuleInterface$PackageReadyParam);
+    public void onSystemServerStarting(io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam);
+}
+
+# 保底：万一以后放开混淆，也要同步改写入口清单
+-adaptresourcefilecontents META-INF/xposed/java_init.list
+
+# 模块自身代码全部保留（含 Companion / lambda / 反射字符串）
+-keep class com.color.sg.hook.** { *; }
