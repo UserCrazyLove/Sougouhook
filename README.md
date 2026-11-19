@@ -15,8 +15,26 @@
 
 - 已 root 并安装 LSPosed（开发验证环境：LSPosed 2.2.1，Xposed API 102）
 - `minSdk 26`，`compileSdk / targetSdk 37`
-- 目标应用：搜狗输入法 OPPO 定制版（设备路径 `/my_product/del-app/SogouInput_U_Product_Del`）。
-  其它渠道版本的混淆类名可能不同，见「版本适配」。
+- 目标应用版本见下一节，目前仅在该版本验证通过
+
+## 已验证版本
+
+| 项 | 值 |
+| --- | --- |
+| 应用 | 搜狗输入法（OPPO 定制版，设备内路径 `/my_product/del-app/SogouInput_U_Product_Del`） |
+| APK 文件名 | `搜狗输入法定制版_10.32.0622.2511060930.apk` |
+| versionName | `10.32.0622.2511060930` |
+| versionCode | `2527` |
+| 大小 | 96,586,214 B |
+| SHA-1 | `CB8B8F091BC687FAC2E19C7E8F582F5D24C110D3` |
+
+该版本内所有 Hook 目标已逐一核对存在：
+
+- 类：`AiWriteManager`、`e20`、`PersonalizedContentView`、`d20`、`PersonalizedContentType`、`clipboard.y`、`clipboard.db.ClipboardItemDao`、`greendao.AbstractDao`、`ClipboardCandidateView`
+- 方法：`AiWriteManager#u()Z`、`e20#b()Z`、`PersonalizedContentView#updatePersonalizedContent(Z)V`、`d20#c()`、`clipboard.y#z(String)V`、`AbstractDao#delete(Object)V`、`ClipboardCandidateView#setClipboardCount(II)V`
+- 字段：`mAiImage`、`mPersonalizedDataRepository`、`mCount`、`mCountText`
+
+**目前仅在该版本验证通过**。其它版本（尤其是其它渠道包）混淆名可能不同，需按「版本适配」重新核对后再使用。
 
 ## 快速开始
 
@@ -130,7 +148,7 @@ dexsql decode -i app.apk --class  'Lcom/sogou/bu/oem/oppo/function/ai/AiWriteMan
 
 ## 已知限制
 
-- 只针对 OPPO 定制版验证；其它渠道包需要重新核对类名与字段名。
+- 只在 `10.32.0622.2511060930`（versionCode 2527）上验证通过；其它版本/渠道包需要重新核对类名与字段名。
 - 「AI 写作」入口在隐藏后，其 AI 气泡（`AiMessage`）同样不再出现；若只想隐藏图标，可禁用第 1、2 层，仅保留第 3 层。
 
 ## 免责声明
